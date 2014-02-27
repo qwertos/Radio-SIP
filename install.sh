@@ -80,11 +80,21 @@ install_baresip () {
 }
 
 
+link_urix () {
+	echo -en "Linking URIx libraries..."
+	ln -s dependencies/urix/urix.rb lib/urix.rb
+	ln -s dependencies/urix/urix lib/urix
+	echo -e " [ ${GREEN}OK${NC} ]"
+}
+
+
 install_dependencies () {
 	install_libre
 	install_librem
 	ldconfig
 	install_baresip
+	ldconfig
+	link_urix
 }
 
 
