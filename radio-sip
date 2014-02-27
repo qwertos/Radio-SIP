@@ -27,4 +27,71 @@
 
 require_relative 'lib/urix.rb'
 
+$DTMF_OUT_FILE_LOC = '/tmp/dtmf.out'
+
+$dtmf_file = nil
+$uri = nil
+
+trap 'SIGINT' do
+	puts "Closing down..."
+	close_down
+	exit
+end
+
+def open_dtmf_file
+	until File.exists?( $DTMF_OUT_FILE_LOC ) do
+		puts "DTMF out file: #{$DTMF_OUT_FILE_LOC}"
+		puts "does not exist. Looking again in "
+		puts "10 seconds."
+		sleep 10
+	end
+
+	return File.open( $DTMF_OUT_FILE_LOC, 'r' )
+end
+
+
+def open_uri
+	uri = URIx::URIx.new
+	uri.claim_interface
+
+	return uri
+end
+
+
+def close_down
+	$dtmf_file.close
+	$uri.close_interface
+end
+
+
+def process_dtmf file, uri
+	begin
+		loop do
+			signal = file.readchar
+
+			case signal
+			when '1'
+				uri.set_ptt :high
+
+			when '2'
+				uri.set_ptt :low
+
+			when 'F'
+				uri.set_ptt :low
+
+			else
+			end
+
+		end
+	rescue Exception
+		close_down
+	end
+end
+
+
+$dtmf_file = open_dtmf_file
+$uri = open_uri
+process_dtmf $dtmf_file, $uri
+
+
 
