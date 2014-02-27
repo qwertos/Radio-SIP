@@ -1,0 +1,3 @@
+[submodule "dependencies/URIx-Util"]
+	path = dependencies/URIx-Util
+	url = https://github.com/qwertos/URIx-Util.git
