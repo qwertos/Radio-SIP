@@ -88,7 +88,15 @@ link_urix () {
 }
 
 
+install_ruby_gems () {
+	echo -e "Running bundle install... "
+	bundle install
+	echo -e "Running bundle install... [ ${GREEN}OK${NC} ]"
+}
+
+
 install_dependencies () {
+	install_ruby_gems
 	install_libre
 	install_librem
 	ldconfig
