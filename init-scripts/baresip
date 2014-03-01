@@ -1,0 +1,79 @@
+#!/bin/bash
+
+
+
+
+
+
+ACTION=$1
+
+CONFIG_DIR="/etc/baresip"
+BINARY="/usr/local/bin/baresip"
+EXECUTABLE="${BIANARY} -f ${CONFIG_DIR} -d"
+PID_FILE="/var/run/baresip.pid"
+LOG_FILE="/var/log/baresip.log"
+
+start () {
+	if [[ -f $PID_FILE ]] ; then
+		echo "Baresip might already be running"
+		echo "If you think this is an error,"
+		echo "please remove the file:"
+		echo "${PID_FILE} and try again"
+		exit 1
+	fi
+
+	$EXECUTABLE > /dev/null 2> /dev/null 
+	echo -n $$ > $PID_FILE
+	echo "Baresip started"
+}
+
+stop () {
+	if [[ -f $PID_FILE ]] ; then
+		kill `cat $PID_FILE`
+		rm $PID_FILE
+		echo "Baresip stopped"
+	else
+		echo "Baresip not running. If this"
+		echo "is an error you might try to"
+		echo "use 'killall baresip'."
+		exit 2
+	fi
+}
+
+status () {
+	if [[ -f $PID_FILE ]] ; then
+		echo "baresip is running with PID: `cat $PID_FILE`"
+		exit
+	else
+		echo "baresip is not currently running"
+		exit
+	fi
+}
+
+
+if [[ $ACTION == 'start' ]] ; then
+	start
+	exit
+fi
+
+if [[ $ACTION == 'stop' ]] ; then
+	stop
+	exit
+fi
+
+if [[ $ACTION == 'status' ]] ; then
+	status
+	exit
+fi
+
+if [[ $ACTION == 'restart' ]] ; then
+	stop
+	start
+	exit
+fi
+
+
+echo "Usage: [start|stop|restart|status]
+
+	
+	
