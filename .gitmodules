@@ -3,5 +3,4 @@
 	url = https://github.com/qwertos/URIx-Util.git
 [submodule "dependencies/baresip"]
 	path = dependencies/baresip
-	url = https://github.com/qwertos/baresip.git
-	branch = dtmfio
+	url = https://github.com/alfredh/baresip.git
