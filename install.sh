@@ -100,12 +100,12 @@ install_ruby_gems () {
 
 
 install_build_tools () {
-	if which yum ; then
+	if which yum > /dev/null ; then
 		yum -y groupinstall 'Development Tools'
 		return
 	fi
 
-	if which apt-get ; then
+	if which apt-get > /dev/null ; then
 		apt-get -y install build-essential
 		return
 	fi
@@ -113,7 +113,7 @@ install_build_tools () {
 
 check_ruby () {
 	echo -en "Checking for ruby... "
-	if which ruby ; then
+	if which ruby > /dev/null ; then
 		echo -e "[ ${GREEN}OK${NC} ]"
 		echo -en "Checking ruby for version ${CYAN}${RUBY_VERSION}${NC}... "
 		if ruby --verion | grep "^ruby ${RUBY_VERSION}" > /dev/null 2> /dev/null ; then
@@ -151,7 +151,20 @@ install_ruby () {
 
 
 install_init_scripts () {
+	echo -en "Installing baresip init script... "
 	cp init-scripts/baresip /etc/init.d/baresip
+	echo -e "[ ${GREEN}OK${NC} ]"
+
+	echo -en "Setting baresip to start on boot... "
+	if which update-rc.d > /dev/null ; then
+		update-rc.d baresip enable
+		echo -e "[ ${GREEN}OK${NC} ]"
+	elif which chkconfig > /dev/null ; then
+		chkconfig baresip on
+		echo -e "[ ${GREEN}OK${NC} ]"
+	else
+		echo -e "[${RED}FAIL${NC}]"
+	fi
 }
 
 
