@@ -9,7 +9,7 @@ ACTION=$1
 
 CONFIG_DIR="/etc/baresip"
 BINARY="/usr/local/bin/baresip"
-EXECUTABLE="${BIANARY} -f ${CONFIG_DIR} -d"
+EXECUTABLE="${BINARY} -f ${CONFIG_DIR} -d"
 PID_FILE="/var/run/baresip.pid"
 LOG_FILE="/var/log/baresip.log"
 
