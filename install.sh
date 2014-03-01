@@ -102,11 +102,12 @@ install_ruby_gems () {
 install_build_tools () {
 	if which yum > /dev/null ; then
 		yum -y groupinstall 'Development Tools'
+		yum -y install libusb libusb-devel
 		return
 	fi
 
 	if which apt-get > /dev/null ; then
-		apt-get -y install build-essential
+		apt-get -y install build-essential libusb-dev libusb
 		return
 	fi
 }
