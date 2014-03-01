@@ -86,8 +86,11 @@ install_baresip () {
 
 link_urix () {
 	echo -en "Linking URIx libraries..."
-	ln -s dependencies/urix/urix.rb lib/urix.rb
-	ln -s dependencies/urix/urix lib/urix
+	mkdir -p lib
+	pushd .
+	cd lib
+	ln -s ../dependencies/URIx-Util/urix/urix.rb
+	ln -s ../dependencies/URIx-Util/urix/urix
 	echo -e " [ ${GREEN}OK${NC} ]"
 }
 
