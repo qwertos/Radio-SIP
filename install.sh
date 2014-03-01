@@ -150,6 +150,11 @@ install_ruby () {
 }
 
 
+install_init_scripts () {
+	cp init-scripts/baresip /etc/init.d/baresip
+}
+
+
 install_dependencies () {
 	install_build_tools
 	check_ruby
@@ -166,6 +171,7 @@ install_dependencies () {
 main () {
 	root_check
 	install_dependencies
+	install_init_scripts
 }
 
 
