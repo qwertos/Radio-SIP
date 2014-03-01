@@ -35,7 +35,7 @@ $uri = nil
 trap 'SIGINT' do
 	puts "Closing down..."
 	close_down
-	exit
+	exit!
 end
 
 def open_dtmf_file
