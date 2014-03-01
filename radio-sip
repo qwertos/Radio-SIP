@@ -46,12 +46,15 @@ def open_dtmf_file
 		sleep 10
 	end
 
+	puts "Opening file"
 	return File.open( $DTMF_OUT_FILE_LOC, 'r' )
 end
 
 
 def open_uri
+	puts "Opening URI"
 	uri = URIx::URIx.new
+	puts "Claiming URI"
 	uri.claim_interface
 
 	return uri
@@ -59,13 +62,16 @@ end
 
 
 def close_down
+	puts "Closing dtmf.out"
 	$dtmf_file.close
+	puts "Closing URI"
 	$uri.close_interface
 end
 
 
 def process_dtmf file, uri
 	begin
+		puts "Watching for DTMF"
 		loop do
 			signal = file.readchar
 
@@ -84,6 +90,7 @@ def process_dtmf file, uri
 
 		end
 	rescue Exception
+		puts "Exception Raised"
 		close_down
 	end
 end
