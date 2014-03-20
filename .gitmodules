@@ -1,6 +1,3 @@
-[submodule "dependencies/URIx-Util"]
-	path = dependencies/URIx-Util
-	url = https://github.com/qwertos/URIx-Util.git
 [submodule "dependencies/baresip"]
 	path = dependencies/baresip
 	url = https://github.com/alfredh/baresip.git
