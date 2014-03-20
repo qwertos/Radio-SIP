@@ -25,7 +25,7 @@
 #################################################################################
 
 
-require 'urix-util'
+require 'urix'
 
 $DTMF_OUT_FILE_LOC = '/tmp/dtmf.out'
 
